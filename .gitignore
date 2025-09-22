@@ -1,0 +1,58 @@
+# Arquivos e pastas do Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.pyd
+*.env
+.env*
+venv/
+ENV/
+.envrc
+
+# Arquivos e pastas do Django
+*.log
+db.sqlite3
+/static/
+/media/
+
+# Arquivos de configuração do VS Code
+.vscode/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de testes
+.coverage
+htmlcov/
+
+# Arquivos de pacotes
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Outros
+*.bak
+*.swp
+*.swo
+
+# Arquivos de dependências
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Arquivos de docker
+*.pid
+
+# Arquivos de cache
+.cache/
+
+# Arquivos de migrations
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/*.pyd
+**/migrations/__pycache__/
