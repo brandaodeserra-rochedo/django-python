@@ -17,14 +17,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),  # noqa: E501
                 ('name', models.CharField(max_length=65)),
             ],
         ),
         migrations.CreateModel(
             name='Recipe',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                                           primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('title', models.CharField(max_length=65)),
                 ('description', models.TextField(max_length=165)),
                 ('slug', models.SlugField(unique=True)),
@@ -33,13 +36,15 @@ class Migration(migrations.Migration):
                 ('severings', models.IntegerField()),
                 ('servings_unit', models.CharField(max_length=65)),
                 ('preparation_steps', models.TextField()),
-                ('preparation_steps_is_html', models.BooleanField(default=False)),
+                ('preparation_steps_is_html', models.BooleanField(
+                    default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_published', models.BooleanField(default=False)),
-                ('cover', models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='cookbook.category')),
+                ('cover', models.ImageField(
+                    upload_to='recipes/covers/%Y/%m/%d/')),
+                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),  # noqa: E501
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='recipes.category')),  # noqa: E501
             ],
         ),
     ]
