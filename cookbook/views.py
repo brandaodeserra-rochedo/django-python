@@ -1,19 +1,17 @@
-from django.shortcuts import render, get_object_or_404,get_list_or_404
-from .models import Recipe
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from cookbook.models import Recipe
-from django.http import Http404
 
 
 # Create your videf sobre_view(request):
 def sobre_view(request):
-    return render(request, 'cookbook/pages/sobre.html', context={'name': 'Brandão'})
+    return render(request, 'cookbook/pages/sobre.html',
+                  context={'name': 'Brandão'})
 
 
 def home_view(request):
     recipes = Recipe.objects.filter(
             is_published=True,
         ).order_by('-id')
-    
     return render(request, 'cookbook/pages/home.html', context={
         'recipes': recipes,
     })
