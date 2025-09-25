@@ -1,11 +1,11 @@
 from django.urls import path
-from recipes.views import sobre_view, home_view, recipe_view, category_view
+from recipes.views import sobre_view, home, recipe, category
 
 app_name = 'recipes'
 
 urlpatterns = [
     path('sobre/', sobre_view, name='sobre'),
-    path('', home_view, name='home'),
-    path('recipes/<int:id>/', recipe_view, name='recipe'),
-    path('recipes/category/<int:category_id>/', category_view, name="category")
+    path('', home, name='home'),
+    path('recipes/<int:id>/', recipe, name='recipe'),
+    path('recipes/category/<int:category_id>/', category, name="category")
 ]

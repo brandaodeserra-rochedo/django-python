@@ -8,7 +8,7 @@ def sobre_view(request):
                   context={'name': 'Brandão'})
 
 
-def home_view(request):
+def home(request):
     recipes = Recipe.objects.filter(
             is_published=True,
         ).order_by('-id')
@@ -17,7 +17,7 @@ def home_view(request):
     })
 
 
-def category_view(request, category_id):
+def category(request, category_id):
     recipes = get_list_or_404(
         Recipe.objects.filter(
             category__id=category_id,
@@ -30,7 +30,7 @@ def category_view(request, category_id):
     })
 
 
-def recipe_view(request, id):
+def recipe(request, id):
     recipe = get_object_or_404(Recipe, pk=id, is_published=True)
     return render(request, 'recipes/pages/recipe-view.html', context={
         'recipe': recipe,
