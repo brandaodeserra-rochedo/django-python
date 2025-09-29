@@ -1,7 +1,5 @@
 import os
 from pathlib import Path
-from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
@@ -20,9 +18,9 @@ def make_chrome_browser(*options):
     if os.environ.get('SELENIUM_HEADLESS') == '1':
         chrome_options.add_argument('--headless')
 
-    chrome_options.add_argument('--no-sandbox')  # Necessário no WSL2/containers
-    chrome_options.add_argument('--disable-dev-shm-usage')  # Evita erros com memória compartilhada
-    chrome_options.add_argument('--remote-debugging-port=9222')  # Evita erro do DevToolsActivePort
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--remote-debugging-port=9222')
     chrome_service = Service(executable_path=CHROMEDRIVER_PATH)
     browser = webdriver.Chrome(service=chrome_service, options=chrome_options)
     return browser
