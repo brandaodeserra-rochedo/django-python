@@ -1,5 +1,7 @@
 # django-python
 
+Abc@1234567
+
 # Checklist Django com Explicações - Desenvolvimento & Code Review
 
 ## 🚀 Checklist Rápido para PRs
