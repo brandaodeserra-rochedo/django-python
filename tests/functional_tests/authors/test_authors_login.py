@@ -34,18 +34,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
             f'Your are logged in with {user.username}.',
             self.browser.find_element(By.TAG_NAME, 'body').text
         )
-
-    def test_login_create_raises_404_if_not_POST_method(self):
-        self.browser.get(
-            self.live_server_url +
-            reverse('authors:login_create')
-        )
-
-        self.assertIn(
-            'Not Found',
-            self.browser.find_element(By.TAG_NAME, 'body').text
-        )
-
+        
     def test_form_login_is_invalid(self):
         # Usuário abre a página de login
         self.browser.get(
@@ -64,9 +53,21 @@ class AuthorsLoginTest(AuthorsBaseTest):
         # Envia o formulário
         form.submit()
 
+        element_response = self.browser.find_element(By.TAG_NAME, 'body').text
         # Vê uma mensagem de erro na tela
         self.assertIn(
             'Invalid username or password',
+            element_response,
+        )
+
+    def test_login_create_raises_404_if_not_POST_method(self):
+        self.browser.get(
+            self.live_server_url +
+            reverse('authors:login_create')
+        )
+
+        self.assertIn(
+            'Not Found',
             self.browser.find_element(By.TAG_NAME, 'body').text
         )
 
@@ -88,8 +89,10 @@ class AuthorsLoginTest(AuthorsBaseTest):
         # Envia o formulário
         form.submit()
 
+        element_response = self.browser.find_element(By.TAG_NAME, 'body').text
+
         # Vê uma mensagem de erro na tela
         self.assertIn(
             'Invalid credentials',
-            self.browser.find_element(By.TAG_NAME, 'body').text
+            element_response
         )
