@@ -62,4 +62,3 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
             len(self.browser.find_elements(By.CLASS_NAME, 'recipe')),
             2
         )
-    
