@@ -6,6 +6,9 @@ brandao
 jose
 Abc@1234567
 
+FBV - functions base view
+CBV - Class Base View
+
 # Checklist Django com Explicações - Desenvolvimento & Code Review
 
 ## 🚀 Checklist Rápido para PRs
