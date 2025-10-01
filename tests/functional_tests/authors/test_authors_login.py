@@ -34,7 +34,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
             f'Your are logged in with {user.username}.',
             self.browser.find_element(By.TAG_NAME, 'body').text
         )
-        
+
     def test_form_login_is_invalid(self):
         # Usuário abre a página de login
         self.browser.get(

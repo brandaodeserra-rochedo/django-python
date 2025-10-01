@@ -1,5 +1,9 @@
 # django-python
 
+brandao
+38312232
+
+jose
 Abc@1234567
 
 # Checklist Django com Explicações - Desenvolvimento & Code Review
