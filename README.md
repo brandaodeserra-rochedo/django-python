@@ -6,8 +6,8 @@ brandao
 jose
 Abc@1234567
 
-FBV - functions base view
-CBV - Class Base View
+FBV - functions base view : branch main
+CBV - Class Base View : branch feature/bvc
 
 # Checklist Django com Explicações - Desenvolvimento & Code Review
 
