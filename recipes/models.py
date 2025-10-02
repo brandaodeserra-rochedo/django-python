@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
-from django.urls import reverse
-from django.utils.text import slugify
 from django.db.models import F, Value
 from django.db.models.functions import Concat
-from django.contrib.contenttypes.fields import GenericRelation
-from tag.models import Tag  # Import Tag model
+from django.urls import reverse
+from django.utils.text import slugify
+from tag.models import Tag
 
 
 class Category(models.Model):
@@ -29,6 +29,7 @@ class RecipeManager(models.Manager):
 
 
 class Recipe(models.Model):
+    objects = RecipeManager()
     title = models.CharField(max_length=65)
     description = models.CharField(max_length=165)
     slug = models.SlugField(unique=True)
@@ -38,9 +39,9 @@ class Recipe(models.Model):
     servings_unit = models.CharField(max_length=65)
     preparation_steps = models.TextField()
     preparation_steps_is_html = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=False,)
+    is_published = models.BooleanField(default=False)
     cover = models.ImageField(
         upload_to='recipes/covers/%Y/%m/%d/', blank=True, default='')
     category = models.ForeignKey(
@@ -50,7 +51,6 @@ class Recipe(models.Model):
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
     )
-    # gerenecia personalizada
     tags = GenericRelation(Tag, related_query_name='recipes')
 
     def __str__(self):
@@ -63,5 +63,4 @@ class Recipe(models.Model):
         if not self.slug:
             slug = f'{slugify(self.title)}'
             self.slug = slug
-
         return super().save(*args, **kwargs)
