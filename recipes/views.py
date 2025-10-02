@@ -1,12 +1,14 @@
 import os
 
-from django.db.models import F, Q, Value, Count
+from django.db.models import Q, F, Value
+from django.db.models.aggregates import Count
 from django.db.models.functions import Concat
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.http.response import Http404
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
+from tag.models import Tag
 from utils.pagination import make_pagination
 
 from recipes.models import Recipe
@@ -80,6 +82,7 @@ class RecipeListViewBase(ListView):
             is_published=True,
         )
         qs = qs.select_related('author', 'category')
+        qs = qs.prefetch_related('tags')
         return qs
 
     def get_context_data(self, *args, **kwargs):
@@ -134,6 +137,32 @@ class RecipeListViewCategory(RecipeListViewBase):
             raise Http404()
 
         return qs
+
+
+class RecipeListViewTag(RecipeListViewBase):
+    template_name = 'recipes/pages/tag.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(tags__slug=self.kwargs.get('slug', ''))
+        return qs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super().get_context_data(*args, **kwargs)
+        page_title = Tag.objects.filter(
+            slug=self.kwargs.get('slug', '')
+        ).first()
+
+        if not page_title:
+            page_title = 'No recipes found'
+
+        page_title = f'{page_title} - Tag |'
+
+        ctx.update({
+            'page_title': page_title,
+        })
+
+        return ctx
 
 
 class RecipeListViewSearch(RecipeListViewBase):
