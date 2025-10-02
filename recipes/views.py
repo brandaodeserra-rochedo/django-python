@@ -1,15 +1,71 @@
 import os
 
-from django.db.models import Q
+from django.db.models import F, Q, Value, Count
+from django.db.models.functions import Concat
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.http.response import Http404
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from utils.pagination import make_pagination
 
 from recipes.models import Recipe
 
 PER_PAGE = int(os.environ.get('PER_PAGE', 6))
+
+
+def theory(request, *args, **kwargs):
+    # Django é lazy, QuerySet API Reference \
+    # https://docs.djangoproject.com/en/4.2/ref/models/querysets/
+
+    # recipes = Recipe.objects.all()
+    # recipes = recipes.filter(is_published=True)
+    # recipes = recipes.select_related('author', 'category')
+    # recipes = recipes.order_by('-id', 'title')
+    # recipes = recipes.get(id=1) levanta exception é a "ObjectDoesNotExist"
+    # recipes = recipes.filter(title__icontains='Teste')
+    # recipes = Recipe.objects.only('id', 'title', 'author__username').all()
+    # cuidado com o only, performance, pode gerar mais queries
+
+    # recipes = Recipe.objects.values('id',
+    #                                 'title',
+    #                                 'author__username').filter(
+    #     id=F('author__id')   # atenção do F para buscar fields relacionados
+    # )
+
+    #  recipes = Recipe.objects.get_published()  # usando o manager customizado
+
+    recipes = Recipe.objects.all().annotate(
+        author_full_name=Concat(
+            F('author__first_name'), Value(' '),
+            F('author__last_name'), Value(' ('),
+            F('author__username'), Value(')'),
+        )
+    )
+    number_of_recipes = Recipe.objects.aggregate(number=Count('id'))
+
+    """
+    recipes = Recipe.objects.filter(
+        Q(
+            Q(title__icontains='Pão',
+              id__gt=2,
+              is_published=True,) |
+            Q(
+                id__gt=15
+            )
+        )
+    )[:10]
+    """
+    context = {
+        'recipes': recipes,
+        'number_of_recipes': number_of_recipes,
+    }
+
+    return render(
+        request,
+        'recipes/pages/theory.html',
+        context=context
+    )
 
 
 class RecipeListViewBase(ListView):
