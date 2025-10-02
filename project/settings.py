@@ -35,9 +35,7 @@ CSRF_TRUSTED_ORIGINS: list[str] = parse_comma_sep_str_to_list(
 )
 
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
