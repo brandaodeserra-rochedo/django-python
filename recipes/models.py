@@ -39,7 +39,7 @@ class Recipe(models.Model):
     servings_unit = models.CharField(max_length=65)
     preparation_steps = models.TextField()
     preparation_steps_is_html = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(
