@@ -12,6 +12,15 @@ O `manage.py` é o **comando central** do Django que permite executar tarefas ad
 python manage.py runserver
 ```
 
+###  Debug tool
+
+https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+
+```bash
+python -m pip install django-debug-toolbar
+```
+
+
 **O que faz:** Inicia o servidor local na porta 8000 (http://localhost:8000)
 
 **Variações:**
