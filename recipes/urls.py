@@ -47,12 +47,19 @@ urlpatterns = [
     ),
     path(
         'recipes/api/v2/',
-        apis.RecipeAPIv2List.as_view(),
+        apis.RecipeAPIv2ViewSet.as_view({
+            'get': 'list',
+            'post': 'create',
+        }),
         name='recipes_api_v2',
     ),
     path(
         'recipes/api/v2/<int:pk>/',
-        apis.RecipeAPIv2Detail.as_view(),
+        apis.RecipeAPIv2ViewSet.as_view({
+            'get': 'retrieve',
+            'patch': 'partial_update',
+            'delete': 'destroy',
+        }),
         name='recipes_api_v2_detail',
     ),
     path(
