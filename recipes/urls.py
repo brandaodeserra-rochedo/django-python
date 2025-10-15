@@ -1,14 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
-
-from recipes import views
+from recipes import views, apis
 
 app_name = 'recipes'
 
 recipe_api_v2_router = SimpleRouter()
 recipe_api_v2_router.register(
     'recipes/api/v2',
-    views.RecipeAPIv2ViewSet,
+    apis.RecipeAPIv2ViewSet,
     basename='recipes-api',
 )
 
@@ -55,7 +54,7 @@ urlpatterns = [
     ),
     path(
         'recipes/api/v2/tag/<int:pk>/',
-        views.tag_api_detail,
+        apis.tag_api_detail,
         name='recipes_api_v2_tag',
     ),
     path('', include(recipe_api_v2_router.urls)),
