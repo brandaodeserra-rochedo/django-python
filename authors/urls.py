@@ -1,12 +1,12 @@
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from . import views
+from . import views, apis
 
 app_name = 'authors'
 
 author_api_router = SimpleRouter()
-author_api_router.register('api', views.AuthorViewSet, basename='author-api')
+author_api_router.register('api', apis.AuthorViewSet, basename='author-api')
 
 print(author_api_router.urls)
 
