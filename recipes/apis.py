@@ -7,13 +7,13 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from tag.models import Tag
 
-from recipes.models import Recipe
-from recipes.permissions import IsOwner
-from recipes.serializers import RecipeSerializer, TagSerializer
+from ..models import Recipe
+from ..permissions import IsOwner
+from ..serializers import RecipeSerializer, TagSerializer
 
 
 class RecipeAPIv2Pagination(PageNumberPagination):
-    page_size = 2
+    page_size = 3
 
 
 class RecipeAPIv2ViewSet(ModelViewSet):
@@ -28,11 +28,6 @@ class RecipeAPIv2ViewSet(ModelViewSet):
 
     def get_serializer(self, *args, **kwargs):
         return super().get_serializer(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["example"] = 'this is in context now'
-        return context
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -62,8 +57,6 @@ class RecipeAPIv2ViewSet(ModelViewSet):
         return super().get_permissions()
 
     def list(self, request, *args, **kwargs):
-        print('REQUEST', request.user)
-        print(request.user.is_authenticated)
         return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
