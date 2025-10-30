@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from tag.models import Tag
 
-from ..models import Recipe
-from ..permissions import IsOwner
-from ..serializers import RecipeSerializer, TagSerializer
+from recipes.models import Recipe
+from recipes.permissions import IsOwner
+from recipes.serializers import RecipeSerializer, TagSerializer
 
 
 class RecipeAPIv2Pagination(PageNumberPagination):

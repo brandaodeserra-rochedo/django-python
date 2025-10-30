@@ -53,7 +53,7 @@ class RecipeAPIv2TestMixin(RecipeMixin):
 
 
 class RecipeAPIv2Test(test.APITestCase, RecipeAPIv2TestMixin):
-    @patch('recipes.views.api.RecipeAPIv2Pagination.page_size', new=7)
+    @patch('recipes.apis.RecipeAPIv2Pagination.page_size', new=7)
     def test_recipe_api_list_loads_correct_number_of_recipes(self):
         wanted_number_of_recipes = 7
         self.make_recipe_in_batch(qtd=wanted_number_of_recipes)
@@ -79,7 +79,7 @@ class RecipeAPIv2Test(test.APITestCase, RecipeAPIv2TestMixin):
             1
         )
 
-    @patch('recipes.views.api.RecipeAPIv2Pagination.page_size', new=10)
+    @patch('recipes.apis.RecipeAPIv2Pagination.page_size', new=10)
     def test_recipe_api_list_loads_recipes_by_category_id(self):
         # Creates categories
         category_wanted = self.make_category(name='WANTED_CATEGORY')
